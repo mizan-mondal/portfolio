@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, Environment } from '@react-three/drei'
 import * as THREE from 'three'
 import './App.css'
@@ -7,6 +7,7 @@ import './App.css'
 function Model({ scrollY }: { scrollY: number }) {
   const { scene } = useGLTF('/3d/mizan3d-optimized.glb')
   const modelRef = useRef<THREE.Object3D>(null)
+  const { viewport } = useThree()
 
   useFrame(() => {
     if (modelRef.current) {
@@ -15,12 +16,16 @@ function Model({ scrollY }: { scrollY: number }) {
     }
   })
 
+  // Responsive adjustments based on viewport 3D units width
+  const scale = Math.min(3.5, viewport.width * 0.7); // Scale down on smaller screens
+  const posX = viewport.width < 5 ? 0 : -0.4;      // Center on mobile
+
   return (
-    <primitive ref={modelRef} object={scene} position={[-0.35, 0, 0]} scale={3.5} />
+    <primitive ref={modelRef} object={scene} position={[posX, 0, 0]} scale={scale} />
   )
 }
 
-useGLTF.preload('/3d/mizan3d.glb')
+useGLTF.preload('/3d/mizan3d-optimized.glb')
 
 function App() {
   const [scrollY, setScrollY] = useState(0)
@@ -49,7 +54,7 @@ function App() {
           className="background-text"
           style={{ transform: `scale(${scale})` }}
         >
-          MIZAN
+          mizan
         </h1>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 10 }}>
           <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
