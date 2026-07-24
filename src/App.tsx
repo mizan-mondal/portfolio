@@ -1,5 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useGLTF, Environment } from '@react-three/drei'
+import * as THREE from 'three'
 import './App.css'
+
+function Model({ scrollY }: { scrollY: number }) {
+  const { scene } = useGLTF('/3d/mizan3d.glb')
+  const modelRef = useRef<THREE.Object3D>(null)
+
+  useFrame(() => {
+    if (modelRef.current) {
+      // Rotate along the horizontal axis (X axis) based on scroll, inverted
+      modelRef.current.rotation.x = -scrollY * 0.01;
+    }
+  })
+
+  return (
+    <primitive ref={modelRef} object={scene} position={[-0.35, 0, 0]} scale={3.5} />
+  )
+}
+
+useGLTF.preload('/3d/mizan3d.glb')
 
 function App() {
   const [scrollY, setScrollY] = useState(0)
@@ -30,11 +51,14 @@ function App() {
         >
           MIZAN
         </h1>
-        <img
-          src="/images/mizan_rbg.png"
-          className="full-screen-image"
-          alt="mizan"
-        />
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 10 }}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+            <ambientLight intensity={1} />
+            <directionalLight position={[10, 10, 10]} intensity={1.5} />
+            <Environment preset="city" />
+            <Model scrollY={scrollY} />
+          </Canvas>
+        </div>
       </div>
     </div>
   )
