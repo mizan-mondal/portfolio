@@ -18,7 +18,7 @@ function Model({ scrollY }: { scrollY: number }) {
 
   // Responsive adjustments based on viewport 3D units width
   const scale = Math.min(3.5, viewport.width * 0.7); // Scale down on smaller screens
-  const posX = viewport.width < 5 ? 0 : -0.4;      // Center on mobile
+  const posX = viewport.width < 5 ? -0.06 : -0.6;      // Center on mobile
 
   return (
     <primitive ref={modelRef} object={scene} position={[posX, 0, 0]} scale={scale} />
