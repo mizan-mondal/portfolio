@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import './App.css'
 
 function Model({ scrollY }: { scrollY: number }) {
-  const { scene } = useGLTF('/3d/mizan3d.glb')
+  const { scene } = useGLTF('/3d/mizan3d-optimized.glb')
   const modelRef = useRef<THREE.Object3D>(null)
 
   useFrame(() => {
