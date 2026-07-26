@@ -47,6 +47,16 @@ function App() {
   const colorVal = Math.min(255, (scrollY / 500) * 255);
   const backgroundColor = `rgb(${colorVal}, ${colorVal}, ${colorVal})`;
 
+  // Calculate seamless scroll transition for the white panel
+  const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
+  const threshold = 30 * Math.log(viewportHeight / 12 + 1);
+  const translateYVal = scrollY < threshold
+    ? 12 * (Math.exp(scrollY / 30) - 1)
+    : viewportHeight + (scrollY - threshold);
+
+  const panelProgress = Math.min(1, translateYVal / viewportHeight);
+  const curveDepth = panelProgress * 8;
+
   return (
     <div className="scroll-container">
       <div className="sticky-container" style={{ backgroundColor }}>
@@ -63,6 +73,26 @@ function App() {
             <Environment preset="city" />
             <Model scrollY={scrollY} />
           </Canvas>
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            top: '100vh',
+            left: 0,
+            width: '100%',
+            minHeight: '10000vh',
+            transform: `translateY(-${translateYVal}px)`,
+            zIndex: 20,
+            backgroundColor: 'rgba(255, 255, 255, 1)',
+            borderRadius: `50% 50% 0 0 / ${curveDepth}vw ${curveDepth}vw 0 0`,
+            color: '#111',
+            padding: '2rem',
+            boxSizing: 'border-box'
+          }}
+        >
+          <h2>ACHEIVMENTS</h2>
+          <h3>none lol</h3>
+          {/* Add more elements here later */}
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@
 }
 
 .scroll-container {
-  height: 300vh;
+  height: 1000vh;
   /* Make the page scrollable */
   width: 100vw;
 }
