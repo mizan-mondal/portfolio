@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+html {
+  scroll-snap-type: y proximity;
+}
+
 .scroll-container {
   height: 1000vh;
   /* Make the page scrollable */
@@ -148,7 +152,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  border-radius: 4px;
+  border-radius: 24px;
   overflow: hidden;
   background: #f5f5f5;
 }
@@ -245,4 +249,33 @@
 
 .hsw-card__link:hover .hsw-card__cta svg {
   transform: translateX(3px);
+}
+
+/* Next Section Card */
+.hsw-card--next-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #111;
+  border-radius: 24px;
+}
+
+.next-section-content {
+  text-align: center;
+}
+
+.next-section-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+}
+
+.next-section-content p {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0;
 }

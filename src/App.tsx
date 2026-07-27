@@ -58,8 +58,16 @@ function App() {
   const panelProgress = Math.min(1, translateYVal / viewportHeight);
   const curveDepth = panelProgress * 8;
 
+  const horizontalScrollStart = threshold + 32;
+  const horizontalScrollEnd = horizontalScrollStart + (viewportHeight * 4); // maxPin from SelectedWorksSection
+
   return (
-    <div className="scroll-container">
+    <div className="scroll-container" style={{ position: 'relative' }}>
+      {/* Scroll Snap Points for magnetic pull */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: 1, height: 1, scrollSnapAlign: 'start' }} />
+      <div style={{ position: 'absolute', top: horizontalScrollStart, left: 0, width: 1, height: 1, scrollSnapAlign: 'start' }} />
+      <div style={{ position: 'absolute', top: horizontalScrollEnd, left: 0, width: 1, height: 1, scrollSnapAlign: 'start' }} />
+
       <div className="sticky-container" style={{ backgroundColor }}>
         <h1
           className="background-text"

@@ -45,17 +45,30 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
   const progress = maxPin > 0 ? Math.max(0, Math.min(1, panelProgress / maxPin)) : 0;
 
   // Horizontal layout — card widths in vw
+  const trackPadding = 4; // 4vw padding on left and right
   const titleCardWidth = 42;
   const projectCardWidth = 52;
   const gap = 3;
-  // Total track width: title + gap + (project + gap) * n
-  const totalWidth = titleCardWidth + gap + projects.length * (projectCardWidth + gap);
-  const maxTranslateX = Math.max(0, totalWidth - 100); // subtract one viewport
+  const servicesSpacer = 15; // Extra 15vw gap to completely knock project cards off screen
+  const nextSectionWidth = 100; // takes full viewport
+  
+  // To perfectly center nextSection and push previous cards out, 
+  // we translate exactly to the start of nextSection
+  const distanceToNextSection = trackPadding + titleCardWidth + gap + projects.length * (projectCardWidth + gap) + servicesSpacer;
+  const maxTranslateX = distanceToNextSection;
   const translateX = -progress * maxTranslateX;
+
+  // Calculate overscroll for when the user scrolls past the horizontal section
+  const overscroll = maxPin > 0 ? Math.max(0, panelProgress - maxPin) : 0;
+  
+  // Scale the Services text: 
+  // - smoothly reaches 1.0 as it comes to the center
+  // - continues enlarging (up to ~1.2) as we scroll further down
+  const servicesTextScale = 0.9 + (progress * 0.1) + (overscroll / viewportHeight) * 0.3;
 
   // Diagonal entry: cards to the right of center have a Y offset (below),
   // which smoothly resolves to 0 as they approach center
-  const totalCards = 1 + projects.length;
+  const totalCards = 1 + projects.length + 1; // +1 for title, +1 for next section
   const getCardStyle = (cardIndex: number): React.CSSProperties => {
     const cardArrival = cardIndex / totalCards;
     const remaining = cardArrival - progress;
@@ -136,6 +149,26 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
               </a>
             </div>
           ))}
+
+          {/* Spacer to push cards entirely out of the picture */}
+          <div style={{ width: `${servicesSpacer}vw`, flexShrink: 0 }} />
+
+          {/* Next Section Intro */}
+          <div
+            className="hsw-card hsw-card--next-section"
+            style={{ width: `${nextSectionWidth}vw`, ...getCardStyle(totalCards - 1) }}
+          >
+            <div 
+              className="next-section-content"
+              style={{ 
+                transform: `scale(${servicesTextScale})`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              <h2>Services</h2>
+              <p>Discover how we can help you grow.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
