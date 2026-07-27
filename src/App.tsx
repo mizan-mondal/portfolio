@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, Environment } from '@react-three/drei'
 import * as THREE from 'three'
+import { SelectedWorksSection } from './SelectedWorksSection'
 import './App.css'
 
 function Model({ scrollY }: { scrollY: number }) {
@@ -90,9 +91,10 @@ function App() {
             boxSizing: 'border-box'
           }}
         >
-          <h2>ACHEIVMENTS</h2>
-          <h3>none lol</h3>
-          {/* Add more elements here later */}
+          <SelectedWorksSection
+            translateYVal={translateYVal}
+            viewportHeight={viewportHeight}
+          />
         </div>
       </div>
     </div>

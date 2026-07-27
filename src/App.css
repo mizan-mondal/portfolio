@@ -52,3 +52,197 @@
   z-index: 1;
   pointer-events: none;
 }
+
+/* ═══════════════════════════════════════════════════
+   Horizontal Scroll Section — trionn.com style
+   ═══════════════════════════════════════════════════ */
+
+.hsw-section {
+  position: relative;
+  margin: 0 -2rem;
+  width: calc(100% + 4rem);
+}
+
+.hsw-viewport {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hsw-track {
+  display: flex;
+  gap: 3vw;
+  padding: 0 4vw;
+  height: 75vh;
+  align-items: stretch;
+  will-change: transform;
+}
+
+.hsw-card {
+  flex-shrink: 0;
+  will-change: transform, opacity;
+}
+
+/* Title Card */
+.hsw-card--title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 0 3vw;
+}
+
+.sw-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  line-height: 1.15;
+  color: #111;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.sw-heading-italic {
+  font-style: italic;
+}
+
+.sw-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  align-self: flex-start;
+}
+
+.sw-view-all:hover {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.sw-view-all svg {
+  width: 10px;
+  height: 9px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sw-view-all:hover svg {
+  transform: translateX(4px);
+}
+
+/* Project Card */
+.hsw-card--project {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.hsw-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hsw-card__image-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.hsw-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hsw-card__link:hover .hsw-card__image {
+  transform: scale(1.04);
+}
+
+/* Info row below image */
+.hsw-card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.2rem 1.5rem;
+  gap: 2rem;
+  background: white;
+}
+
+.hsw-card__info-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.hsw-card__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem 0;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.hsw-card__desc {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.hsw-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #111;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.hsw-card__cta svg {
+  width: 8px;
+  height: 8px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hsw-card__link:hover .hsw-card__cta {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.hsw-card__link:hover .hsw-card__cta svg {
+  transform: translateX(3px);
+}
