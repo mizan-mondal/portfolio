@@ -13,9 +13,9 @@ const projects: CardData[] = [
     imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
   },
   {
-    title: 'Oblique Strategies',
-    description: 'An experimental experience exploring non-linear navigation patterns.',
-    imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop',
+    title: 'RFID enabled Locking Mechanism',
+    description: 'A microcontroller based locking mechanism that uses RFID as authentication.',
+    imageUrl: '/videos/r1.mp4',
   },
   {
     title: 'Neuromorphic Engine',
@@ -47,11 +47,11 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
   // Horizontal layout — card widths in vw
   const trackPadding = 4; // 4vw padding on left and right
   const titleCardWidth = 42;
-  const projectCardWidth = 52;
+  const projectCardWidth = 42;
   const gap = 3;
   const servicesSpacer = 15; // Extra 15vw gap to completely knock project cards off screen
   const nextSectionWidth = 100; // takes full viewport
-  
+
   // To perfectly center nextSection and push previous cards out, 
   // we translate exactly to the start of nextSection
   const distanceToNextSection = trackPadding + titleCardWidth + gap + projects.length * (projectCardWidth + gap) + servicesSpacer;
@@ -60,7 +60,7 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
 
   // Calculate overscroll for when the user scrolls past the horizontal section
   const overscroll = maxPin > 0 ? Math.max(0, panelProgress - maxPin) : 0;
-  
+
   // Scale the Services text: 
   // - smoothly reaches 1.0 as it comes to the center
   // - continues enlarging (up to ~1.2) as we scroll further down
@@ -132,7 +132,11 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
             >
               <a href="#" className="hsw-card__link">
                 <div className="hsw-card__image-wrap">
-                  <img src={project.imageUrl} alt={project.title} className="hsw-card__image" />
+                  {project.imageUrl.endsWith('.mp4') ? (
+                    <video src={project.imageUrl} className="hsw-card__image" autoPlay loop muted playsInline />
+                  ) : (
+                    <img src={project.imageUrl} alt={project.title} className="hsw-card__image" />
+                  )}
                 </div>
                 <div className="hsw-card__info">
                   <div className="hsw-card__info-left">
@@ -158,9 +162,9 @@ export function SelectedWorksSection({ translateYVal, viewportHeight }: Props) {
             className="hsw-card hsw-card--next-section"
             style={{ width: `${nextSectionWidth}vw`, ...getCardStyle(totalCards - 1) }}
           >
-            <div 
+            <div
               className="next-section-content"
-              style={{ 
+              style={{
                 transform: `scale(${servicesTextScale})`,
                 transition: 'transform 0.1s ease-out'
               }}
